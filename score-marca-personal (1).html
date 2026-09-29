@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Score de Marca Personal | Gonza</title>
+<meta name="description" content="Puntuate en 8 áreas y descubrí cuál es tu cuello de botella. Test gratis de 2 minutos.">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#eef3f6;--card:#fff;--ink:#0d2534;--mute:#5b7080;--line:#d5e0e7;--brand:#0d2534;--onbrand:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b151c;--card:#13222c;--ink:#eaf2f6;--mute:#93a9b6;--line:#26404f;--brand:#eaf2f6;--onbrand:#0b151c}}
+:root[data-theme="dark"]{--bg:#0b151c;--card:#13222c;--ink:#eaf2f6;--mute:#93a9b6;--line:#26404f;--brand:#eaf2f6;--onbrand:#0b151c}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*:before,*:after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:640px;margin:0 auto;padding:20px 18px 48px}
+h1,h2,h3{line-height:1.15;margin:0 0 .5em;letter-spacing:-.02em}
+h1{font-size:clamp(2rem,8vw,3rem);font-weight:850}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px 20px}
+p{margin:0 0 1em}.mute{color:var(--mute)}
+button{font:inherit;cursor:pointer;color:inherit}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #2a9df4;outline-offset:2px}
+.btn{display:inline-block;background:var(--brand);color:var(--onbrand);border:0;border-radius:999px;padding:14px 26px;font-weight:700;text-decoration:none}
+.btn[disabled]{opacity:.6}
+.ghost{background:none;border:1px solid var(--line);color:var(--ink)}
+.bar{height:8px;background:var(--line);border-radius:9px;overflow:hidden;margin:6px 0 20px}
+.bar i{display:block;height:100%;background:var(--brand);transition:width .3s}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.back{background:none;border:0;color:var(--mute);padding:8px 0}
+.back[disabled]{visibility:hidden}
+.emo{font-size:3.2rem;line-height:1;margin:0 0 .3em}
+.ext{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0}
+.ext div{border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:.93rem}
+.ext b{display:block;font-size:1.1rem;margin-bottom:2px}
+.big{font-size:4.5rem;font-weight:900;line-height:1;text-align:center;margin:8px 0 4px;letter-spacing:-.04em}
+input[type=range]{width:100%;height:36px;accent-color:var(--brand);margin:0 0 22px}
+.res{border-top:6px solid var(--c)}
+.score{font-size:clamp(3.5rem,18vw,5.5rem);font-weight:900;line-height:1;letter-spacing:-.04em}
+.score small{font-size:.35em;color:var(--mute);font-weight:600}
+.name{color:var(--c);font-size:clamp(1.8rem,8vw,2.6rem);font-weight:900}
+.bn{border:1.5px solid var(--c);border-radius:14px;padding:16px;margin:20px 0}
+.sc{display:grid;grid-template-columns:120px 1fr 30px;gap:8px;align-items:center;font-size:.9rem;margin:6px 0}
+.sc .bar{margin:0;height:10px}.sc .bar i{background:var(--k,var(--brand))}
+.cta{background:var(--line);border-radius:14px;padding:16px;margin:22px 0 14px}
+input.f{width:100%;font:inherit;padding:13px 14px;margin:0 0 12px;border:1.5px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<form name="score-marca-personal" method="POST" data-netlify="true" netlify-honeypot="bot-field" hidden>
+<input name="bot-field"><input name="nivel"><input name="puntaje_total"><input name="cuello_de_botella"><input name="instagram">
+<input name="nicho"><input name="constancia"><input name="storytelling"><input name="carisma"><input name="autoridad"><input name="oferta"><input name="ventas"><input name="monetizacion">
+</form>
+<script>
+const IG_USER = "gonzabastos";
+
+const A = [
+["nicho","Claridad del nicho","¿Qué tan claro tenés de qué trata tu contenido?","Filmo lo que aparece, sin estrategia ni pilares. Creo a ciegas.","Tengo estrategia y pilares definidos. Sé qué repetir y qué descartar.","Sin estrategia ni pilares, creás a ciegas. Cuando tenés una estrategia clara, aumentás las chances de que cada video funcione."],
+["constancia","Constancia","¿Cómo es tu forma de producir?","Grabo de a un video, sin calendario. Semanas sin subir y después tres de golpe.","Trabajo por bloques: un día busco ideas, otro día armo los guiones, y después filmo 4 o 5 juntos, con calendario.","Te falta un sistema de organización. Dividí la creación por bloques: un día ideas, otro guiones, y recién ahí filmás 4 o 5 a la vez."],
+["storytelling","Ideas de tus videos","¿Qué tan fuertes son las ideas de tus videos?","Pruebo ideas al azar y muchas son débiles.","Cada video parte de una idea fuerte y sé por qué funciona.","Tus ideas se quedan cortas. Si la idea es débil, por más edición o guion que le metas, el video no va a funcionar."],
+["carisma","Carisma frente a cámara","¿Cómo te sentís frente a la cámara?","Me da pudor, repito tomas y salgo dudando.","Me siento cómodo y se nota. La cámara es mi lugar.","Te falta soltura frente a la cámara. Es lo más entrenable de todo: se mejora con práctica y con un sistema que te haga grabar seguido."],
+["autoridad","Autoridad","¿Qué tan claro es qué te hace referente en lo tuyo?","Ni mi audiencia ni las marcas saben por qué mirarme a mí.","Mi contenido les resulta interesante a las marcas y me reconocen en lo mío.","Ni tu audiencia ni las marcas tienen claro por qué elegirte. Hay que definir qué te hace referente y hacerlo visible en tu contenido."],
+["oferta","Oferta","¿Qué tenés para ofrecer más allá de un canje?","Nada armado.","Tengo más de una oferta clara (viaje grupal, contenido para marcas, un producto económico, una asesoría).","Tenés atención pero poco para ofrecer. Armar más de una oferta (viajes grupales, contenido para marcas, productos económicos, asesorías) es el primer paso para diversificar."],
+["ventas","Ventas","¿Qué tan bien sabés acercarte a las marcas?","No sé a quién escribirle, cómo, ni cuánto cobrar.","Sé a qué marcas ir, cómo contactarlas y cuánto cobrarles.","No saber a quién escribirle, cómo, ni cuánto cobrar hace todo mucho más difícil. Se puede aprender y sistematizar."],
+["monetizacion","Monetización","¿Cuánto y de cuántas fuentes ganás con tu contenido?","Nada, o dependo de una sola fuente.","Varias fuentes de ingreso. No dependo 100% de trabajos pagados por marcas.","Depender de una sola fuente (o de ninguna) te deja frenado. La salida es diversificar."]
+];
+
+const L = [
+{max:32,e:"🎯",n:"Dardos con los ojos cerrados",c:"#e0620a",b:[
+"Te lo digo con cariño: hoy estás creando como si tiraras dardos con los ojos cerrados. Capaz que uno de diez videos funciona, pero como no hay estrategia ni un sistema atrás, no sabés cuál ni cómo repetirlo. Y si encima las ideas son débiles, por más edición que le metas, el video no va a funcionar.",
+"Quiero que esto te quede clarísimo: <b>un puntaje bajo no significa que no tengas talento.</b> Significa que todavía nadie te armó el sistema. Y cuando falta el sistema, todo cuesta el doble: grabar, ser constante y llegar a las marcas.",
+"Lo que cambia esto no es otro curso grabado, porque ahí no hay nadie mirando tu caso. Es un sistema armado sobre tu cuenta: estrategia, trabajar por bloques y una forma clara de acercarte a las marcas y de diversificar tus ingresos."]},
+{max:56,e:"🧩",n:"Base armada, sistema en pausa",c:"#0f8b8d",b:[
+"Este puntaje me gusta, porque quiere decir que <b>tenés varias cosas bien</b>. Ya hay una base: sabés grabar, tenés algo de audiencia y algunas partes de tu marca funcionan. El tema es que las áreas no están conectadas por un sistema, y por eso seguís sintiendo que das mucho más de lo que recibís.",
+"Lo veo muchísimo: gente con 17k, 40k o hasta 60 mil seguidores que no monetiza como debería, no por falta de valor sino porque no tiene un sistema claro ni sabe cómo acercarse a las marcas. Y cuando dependés de una sola fuente, todo se hace más difícil. Por eso repito siempre: <b>diversificar</b>. No depender 100% de trabajos pagados por marcas.",
+"Lo que te falta no es más esfuerzo ni un curso grabado: es ordenar lo que ya tenés en un sistema, trabajando por bloques y con un calendario, para que cada pieza empuje a la otra."]},
+{max:80,e:"🚀",n:"A un sistema de despegar",c:"#2b9348",b:[
+"Tenés una marca con base sólida y lo más difícil ya lo hiciste. Pero te tengo una noticia honesta: <b>un puntaje alto no significa que no haya un cuello de botella</b>, y el tuyo es justo el que te frena para pasar al siguiente nivel.",
+"En este punto el problema casi nunca es crear más. Es sostener lo que funciona con un sistema (trabajar por bloques, calendario), asegurarte de que cada idea sea fuerte antes de invertir horas, y <b>diversificar</b> para no depender de una sola fuente: viajes grupales, contenido para marcas, un producto digital económico o asesorías de precio alto.",
+"Un curso grabado no te lo resuelve, porque tu caso ya es demasiado específico. Lo que necesitás es que alguien mire tu cuenta y te ayude a afinar lo que falta."]}
+];
+
+const app = document.getElementById("app");
+let i = 0, v = A.map(() => 5);
+const igHref = `https://ig.me/m/${IG_USER}`;
+
+function intro() {
+  app.innerHTML = `<div class="card"><p class="emo">📊</p><h1>Score de Marca Personal</h1>
+  <p>Puntuate del 1 al 10 en 8 áreas de tu marca. Al final te doy tu número y te muestro cuál es el cuello de botella que te frena para crecer y monetizar.</p>
+  <p class="mute">Puntuate con honestidad. Cuanto más real, más útil el resultado. Son 2 minutos.</p>
+  <button class="btn" id="go">Calcular mi score</button></div>`;
+  document.getElementById("go").onclick = () => { i = 0; v = A.map(() => 5); ask(); };
+}
+
+function ask() {
+  const a = A[i];
+  app.innerHTML = `<div class="row mute"><button class="back" id="bk" ${i ? "" : "disabled"}>← Volver</button><span>${i + 1} de ${A.length}</span></div>
+  <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="${A.length}" aria-valuenow="${i}"><i style="width:${(i / A.length) * 100}%"></i></div>
+  <p class="mute" style="margin:0 0 4px">${a[1]}</p><h2>${a[2]}</h2>
+  <div class="ext"><div><b>1</b>${a[3]}</div><div><b>10</b>${a[4]}</div></div>
+  <div class="big" id="n" aria-live="polite">${v[i]}</div>
+  <input type="range" id="r" min="1" max="10" step="1" value="${v[i]}" aria-label="${a[1]}: puntaje del 1 al 10">
+  <button class="btn" id="nx">${i < A.length - 1 ? "Siguiente" : "Ver mi score"}</button>`;
+  const r = document.getElementById("r");
+  r.oninput = () => { v[i] = +r.value; document.getElementById("n").textContent = r.value; };
+  document.getElementById("bk").onclick = () => { if (i) { i--; ask(); } };
+  document.getElementById("nx").onclick = () => { if (i < A.length - 1) { i++; ask(); } else result(); };
+  window.scrollTo(0, 0);
+}
+
+function result() {
+  const total = v.reduce((x, y) => x + y, 0), lv = L.find(l => total <= l.max);
+  const low = v.indexOf(Math.min(...v)), a = A[low];
+  const bars = A.map((x, k) => `<div class="sc"><span>${x[1]}</span><div class="bar"><i style="width:${v[k] * 10}%"></i></div><span>${v[k]}</span></div>`).join("");
+  app.innerHTML = `<div class="card res" style="--c:${lv.c}"><p class="emo">${lv.e}</p>
+  <p class="mute" style="margin:0">Tu score de marca personal</p>
+  <div class="score">${total}<small>/80</small></div>
+  <h1 class="name">${lv.n}</h1>
+  ${lv.b.map(x => `<p>${x}</p>`).join("")}
+  <div class="bn"><h3>Tu cuello de botella es: ${a[1]} (${v[low]}/10)</h3><p style="margin:0">${a[5]}</p></div>
+  <h3>Tu puntaje por área</h3>${bars}
+  <div class="cta"><p style="margin:0">Si te cayó la ficha con este resultado, <b>sacale una captura a esta pantalla y compartila con Gonza en Instagram (@${IG_USER})</b>. Él mira tu caso y te tira algunos tips pensados para tu situación. 📲</p></div>
+  <a class="btn" href="${igHref}" target="_blank" rel="noopener">Mandale tu score a Gonza por Instagram</a></div>
+  <p style="margin-top:18px"><button class="btn ghost" id="again">Repetir el test</button></p>`;
+  window.scrollTo(0, 0);
+  document.getElementById("again").onclick = intro;
+  const data = {"form-name":"score-marca-personal", nivel:lv.n, puntaje_total:total, cuello_de_botella:a[1]};
+  A.forEach((x, k) => data[x[0]] = v[k]);
+  fetch("/", {method:"POST", headers:{"Content-Type":"application/x-www-form-urlencoded"}, body:new URLSearchParams(data).toString()}).catch(() => {});
+}
+intro();
+</script>
+</body>
+</html>
